@@ -34,11 +34,14 @@ jobs:
           gradle-version: '8.9'
 
      
+      
       - name: Build APK
         working-directory: source/NotificationToTelegram
         run: |
           sed -i '/android {/a\    compileOptions {\n        sourceCompatibility = JavaVersion.VERSION_17\n        targetCompatibility = JavaVersion.VERSION_17\n    }' app/build.gradle.kts
+          sed -i 's/singleLine = true/setSingleLine(true)/g' app/src/main/java/ru/example/notificationtotelegram/MainActivity.kt
           gradle --no-daemon assembleDebug
+
 
 
       - uses: actions/upload-artifact@v4
